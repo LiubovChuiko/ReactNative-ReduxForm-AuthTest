@@ -4,7 +4,7 @@ import {Field, reduxForm} from "redux-form";
 import { Picker } from 'react-native-picker-dropdown';
 
 import RFDateView from "./RFDateInput";
-import {ChonseSelect} from "react-native-chonse-select";
+import {ChonseSelect} from "./ChonseSelect";
 import {Ionicons} from "@expo/vector-icons";
 import validate from "./validation";
 import styles from "./styles";

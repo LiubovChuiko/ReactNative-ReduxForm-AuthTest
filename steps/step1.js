@@ -13,7 +13,7 @@ class Step1FormView extends Component {
         super(props);
         this.state = {};
     }
-    
+
     nextStep = async (values) => {
         const { next, saveState } = this.props;
         saveState( {email: `${values.Email}`, password: `${values.Password}`} );
