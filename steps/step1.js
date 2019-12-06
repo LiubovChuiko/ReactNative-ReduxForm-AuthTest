@@ -99,8 +99,8 @@ class Step1FormView extends Component {
 
 const step1 = reduxForm({
     form: 'step1',
-    destroyOnUnmount: false, // <------ preserve form data
-    forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
     validate,
 })(Step1FormView);
 

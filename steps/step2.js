@@ -156,8 +156,8 @@ export class Step2FormView extends Component {
 
 const step2 = reduxForm({
   form: 'step1',
-  destroyOnUnmount: false, // <------ preserve form data
-  forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true, 
   validate,
 })(Step2FormView);
 
