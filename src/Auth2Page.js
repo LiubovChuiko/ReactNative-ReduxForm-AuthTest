@@ -1,28 +1,38 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, SafeAreaView, Text} from "react-native";
 import {Field, reduxForm} from "redux-form";
-import { Picker } from 'react-native-picker-dropdown';
-
-import RFDateView from "./RFDateInput";
-import {ChonseSelect} from "./ChonseSelect";
 import {Ionicons} from "@expo/vector-icons";
+import { connect } from 'react-redux';
+
+import RFDateView from "../FormComponents/RFDateInput";
+import CircleSwitchBoxes from "../FormComponents/RFSwitchBoxes";
+import RFPickerListView from "../FormComponents/RFPickerList";
+
 import validate from "./validation";
 import styles from "./styles";
 
-const Genderdata = [
+const PickerList = [
   {
-    value:'0',
-    label:'MALE'
+    id: 1,
+    name: 'Facebook',
+    checked: false,
   },
   {
-    value:'1',
-    label:'FEMALE'
+    id: 2,
+    name: 'LinkedIn',
+    checked: false,
   },
   {
-    value:'2',
-    label:'UNSPECIFIED'
-  }
+    id: 3,
+    name: 'Djinni',
+    checked: false,
+  },
 ];
+
+const DefList = {
+    name: 'Select your answer',
+    checked: false,
+}
 
 export class Step2FormView extends Component {
   constructor(props) {
@@ -34,17 +44,17 @@ export class Step2FormView extends Component {
   componentDidMount() {
     const { getState } = this.props;
     const state = getState();
-    //console.log("TCL: step2 -> componentDidMount -> state", state);
+    //console.log("TCL: auth2Page -> componentDidMount -> state", state);
   };
 
   handleValueChange(howTo) {
     this.setState({ howTo })
   };
 
-  nextStep = async (values, item) => {
+  nextStep = async (values) => {
     const { next, saveState } = this.props;
     const Birthday = `${values.Bday}`+'-'+`${values.Bmnth}`+'-'+`${values.Byear}`;
-    saveState({ birthday: Birthday , gender: this.state.gender, howTo: this.state.howTo});
+    saveState({ birthday: Birthday , gender: `${values.Gender}`, howTo: `${values.How}`});
     next();
   };
 
@@ -68,7 +78,7 @@ export class Step2FormView extends Component {
           <View style={styles.container}>
 
 
-            <Text>DAY OF BIRTH</Text>
+            <Text style={{marginBottom: 10}}>DATE OF BIRTH</Text>
             <View style={styles.BDayView}>
 
               <Field
@@ -91,33 +101,21 @@ export class Step2FormView extends Component {
             </View>
 
 
-            <View style={styles.genderView}>
-              <Text style={styles.genderLabel}>GENDER</Text>
-              <ChonseSelect
-                  height={40}
-                  style={styles.genderSelect}
-                  data={Genderdata}
-                  initValue={this.state.intVal}
-                  onPress={(item) => this.setState({ gender: item.label, intVal: item.value, valide: true })}
-              />
-            </View>
+            <Field
+                label="GENDER"
+                name="Gender"
+                component={CircleSwitchBoxes}
+                data={['MALE', 'FEMALE', 'UNSPECIFIED']}
+            />
 
+            <Field
+                type="HOW DID YOU KNOW ABOUT US"
+                name="How"
+                component={RFPickerListView}
+                defaultList={DefList}
+                list={PickerList}
+            />
 
-            <View style={{alignItems: 'center'}}>
-              <Text style={styles.label}>WHERE DID YOU KNOW ABOUT US</Text>
-              <Picker
-                  selectedValue={this.state.howTo}
-                  onValueChange={this.onValueChange}
-                  prompt="Choose your answer"
-                  mode="dialog"
-                  style={styles.pickerBox}
-                  textStyle={styles.textStyle}
-              >
-                <Picker.Item label="LinkedIn" value="linkedin" />
-                <Picker.Item label="Djinni" value="djinni" />
-                <Picker.Item label="Facebook" value="facebook" />
-              </Picker>
-            </View>
 
           </View>
 
@@ -154,11 +152,29 @@ export class Step2FormView extends Component {
   };
 };
 
-const step2 = reduxForm({
-  form: 'step1',
+const mapStateToProps = (state) => {
+  //console.log('state to props - ', state);
+  const Bdate = state.form.user.values.Bday+'-'+state.form.user.values.Bmnth+'-'+state.form.user.values.Byear;
+  console.log('state values Bday - ', state.form.user.values);
+  return {
+    initialValues: {
+      BirhdayDate: 'Bdate',
+    }
+  }
+};
+
+//const Step2 = (connect(mapStateToProps)(reduxForm({
+//    form: 'user',
+//    destroyOnUnmount: false,
+//    forceUnregisterOnUnmount: true,
+//    validate,
+//})(Step2FormView)))
+
+const Step2 = reduxForm({
+  form: 'user',
   destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true, 
+  forceUnregisterOnUnmount: true,
   validate,
 })(Step2FormView);
 
-export default step2;
+export default Step2;

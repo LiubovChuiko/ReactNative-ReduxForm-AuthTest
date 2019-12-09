@@ -10,10 +10,10 @@ import AnimatedMultistep from "react-native-animated-multistep";
 const initialState = {};
 const store = createStore(allReducers);
 
-import Step1 from "./steps/step1";
-import Step2 from "./steps/step2";
-import Step3 from "./steps/step3";
-import Step4 from "./steps/step4";
+import Step1 from "./src/Auth1Page";
+import Step2 from "./src/Auth2Page";
+import Step3 from "./src/Auth3Page";
+import Step4 from "./src/Auth4Page";
 
 const allSteps = [
   { name: "step 1", component: Step1 },
@@ -29,8 +29,11 @@ export default class App extends Component {
   };
 
   onNext = (values, state) => {
-    const vals = store.getState();
+    const storestate = store.getState();
+    const storevalues = storestate.form.user.values;
     console.log("Next -> state", state);
+    //console.log("store -> ", store.getState());
+    console.log("store values -> ", storevalues);
   };
   onBack = () => {
     console.log("Back");

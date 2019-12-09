@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView} from "react-native";
 import styles from "./styles";
 import {Ionicons} from "@expo/vector-icons";
 
-export class step4 extends Component {
+export class Step4 extends Component {
   constructor(props) {
     super(props);
       //const { obj } = this.props;
@@ -13,7 +13,7 @@ export class step4 extends Component {
     componentDidMount() {
         const { getState } = this.props;
         const state = getState();
-        console.log("TCL: step4 -> componentDidMount -> state", state);
+        console.log("TCL: auth4Page -> componentDidMount -> state", state);
     }
 
   render(state) {
@@ -43,4 +43,4 @@ export class step4 extends Component {
   }
 }
 
-export default step4;
+export default Step4;

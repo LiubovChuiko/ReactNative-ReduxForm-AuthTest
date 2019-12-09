@@ -4,7 +4,7 @@ import {Image, View, TouchableOpacity, TextInput, Text, SafeAreaView} from "reac
 import styles from "./styles";
 import {Ionicons} from "@expo/vector-icons";
 
-export class step3 extends Component {
+export class Step3 extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,7 +13,7 @@ export class step3 extends Component {
   componentDidMount() {
     const { getState } = this.props;
     const state = getState();
-    //console.log("TCL: step3 -> componentDidMount -> state", state);
+    //console.log("TCL: auth3Page -> componentDidMount -> state", state);
   }
 
   render() {
@@ -58,4 +58,4 @@ export class step3 extends Component {
   }
 }
 
-export default step3;
+export default Step3;

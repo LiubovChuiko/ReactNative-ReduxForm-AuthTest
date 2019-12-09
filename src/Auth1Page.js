@@ -3,19 +3,23 @@ import {Image, View, TouchableOpacity, Text, SafeAreaView, Picker} from "react-n
 import { Field, Fields, reduxForm } from 'redux-form';
 import { Ionicons } from '@expo/vector-icons';
 
+
 import validate from "./validation";
 import styles from "./styles";
-import RFTextView from "./RFTextInput";
+import RFTextView from "../FormComponents/RFTextInput";
+
+
 
 
 class Step1FormView extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {gender: 'FEMALE', initVal: '1'};
+
     }
 
     nextStep = async (values) => {
-        const { next, saveState } = this.props;
+        const { next, saveState, state } = this.props;
         saveState( {email: `${values.Email}`, password: `${values.Password}`} );
         next();
     };
@@ -28,11 +32,9 @@ class Step1FormView extends Component {
 
 
     render() {
-        const { handleSubmit,
-            submitFailed,
-            submitSucceeded,
-            submitting,
-            valid } = this.props;
+        const { handleSubmit, submitting } = this.props;
+        //const { gender } = this.props.gender;
+        const initialValues = { "Gender": this.props.saveState.gender};
         return (<SafeAreaView style={styles.container}>
 
                 <View style={styles.AppbarStyle}>
@@ -64,6 +66,9 @@ class Step1FormView extends Component {
                         type="password"
                     />
 
+
+
+
                 </View>
 
                 <View style={[styles.BotContainer, {borderTopWidth: 1, borderTopColor: '#999'}]}>
@@ -80,7 +85,7 @@ class Step1FormView extends Component {
                     <View style={styles.ButRight}>
                         <TouchableOpacity
                             disabled={submitting}
-                            onPress={handleSubmit(this.nextStep)}>
+                            onPress={handleSubmit(this.nextStep)} initialValues={initialValues}>
                             <Text style={styles.UnableBut}>
                                 Next
                                 <Ionicons style={styles.IconStyle} name={"ios-arrow-round-forward"} />
@@ -94,15 +99,17 @@ class Step1FormView extends Component {
         )
 
     }
-}
+};
 
 
-const step1 = reduxForm({
-    form: 'step1',
-    destroyOnUnmount: false,
-    forceUnregisterOnUnmount: true,
-    validate,
+const Step1 = reduxForm({
+   form: 'user',
+   destroyOnUnmount: false,
+   forceUnregisterOnUnmount: true,
+   validate,
 })(Step1FormView);
 
+export default Step1;
 
-export default step1;
+
+

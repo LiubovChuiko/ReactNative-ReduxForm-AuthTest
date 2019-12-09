@@ -22,15 +22,16 @@ const RFTextInput = ({label, type, placeholder,
       style={[
         styles.textInput_Style,
         {
-          color: disabled ? 'gray' : 'black',
-          borderBottomColor: !valid && touched ? 'red' : 'gray'
+          color: disabled ? 'gray' : '#666',
+          borderBottomColor: !valid && touched ? 'red' : '#ccc'
         },
       ]}
     />
   </View>
+    <View style={{height: 20}}>
     {touched && !valid && <Text style={styles.rootError}>{error}</Text>}
+    </View>
   </View>
-
 
 );
 

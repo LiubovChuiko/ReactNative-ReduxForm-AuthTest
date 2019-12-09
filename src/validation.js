@@ -21,6 +21,9 @@ const validate = (values) => {
     } else if (values.Confirmpassword !== values.Password) {
         errors.Confirmpassword = 'Password mismatched' ;
     }
+    if (!values.Gender) {
+        errors.Gender = 'Required!';
+    }
     if (!values.Bday) {
         errors.Bday = 'Required!';
     } else if (values.Bday.length < 2) {

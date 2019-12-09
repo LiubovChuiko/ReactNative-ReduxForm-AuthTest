@@ -21,8 +21,8 @@ const RFTextInput = ({label, type,
       style={[
         styles.rootInput,
         {
-          color: disabled ? 'gray' : 'black',
-          borderBottomColor: !valid && touched ? 'red' : 'gray'
+          color: disabled ? 'gray' : '#666',
+          borderBottomColor: !valid && touched ? 'red' : '#ccc'
         },
       ]}
     />
